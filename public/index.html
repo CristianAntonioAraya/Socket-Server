@@ -31,7 +31,9 @@
         const clientForm = document.getElementById('sendForm');
         const clientMessages = document.getElementById('clientMessages');
         const clientInput = document.getElementById('clientInput');
-        
+
+        socket.emit( 'welcome-message', { msg: 'New Client connected'})
+
         clientForm.addEventListener( 'submit', ( e ) => {
             e.preventDefault();
             const newMessage = clientInput.value;
