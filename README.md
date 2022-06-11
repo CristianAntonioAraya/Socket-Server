@@ -23,3 +23,7 @@ Runs the server in the development mode.
 Launch the server using `Nodemon` in port `4000`.
 
 [Nodemon](https://www.npmjs.com/package/nodemon) package is required to use this script.
+
+# *Environment Variables*
+
+PORT = Set the port the server will run on
