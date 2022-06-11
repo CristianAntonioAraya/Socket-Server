@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Mini Chat</title>
+</head>
+<body>
+    
+    <div class="content__container">
+        <h1>Mini Chat</h1>
+        <form id="sendForm">
+            <input placeholder="Message" id="clientInput" >
+            <button type="submit">Send</button>
+        </form>
+        <div class="message__container">
+            <ul id="clientMessages">
+                
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.1/socket.io.js" integrity="sha512-9mpsATI0KClwt+xVZfbcf2lJ8IFBAwsubJ6mI3rtULwyM3fBmQFzj0It4tGqxLOGQwGfJdk/G+fANnxfq9/cew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+        const socket = io('http://localhost:4000');
+ 
+        //Dom reference
+        const clientForm = document.getElementById('sendForm');
+        const clientMessages = document.getElementById('clientMessages');
+        const clientInput = document.getElementById('clientInput');
+
+        socket.emit( 'welcome-message', { msg: 'New Client connected'})
+
+        clientForm.addEventListener( 'submit', ( e ) => {
+            e.preventDefault();
+            const newMessage = clientInput.value;
+            socket.emit( 'client-message', { clientMsg: newMessage })
+        } );
+
+        socket.on( 'message-from-server', ( data ) => {
+            console.log( data )
+            clientMessages.innerHTML += `<li>${ data.clientMsg }</li>`
+
+        })
+
+
+    </script>
+</body>
+</html>
